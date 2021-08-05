@@ -15,7 +15,7 @@ const App = () => {
   const noMoviesSection = useRef();
 
   const getMovies = async (value) => {
-    const requestUrl = `${API_URL}s=${value}&page=2&apikey=${API_KEY}`;
+    const requestUrl = `${API_URL}s=${value}&apikey=${API_KEY}`;
 
     const res = await fetch(requestUrl,{
       method: "GET"
