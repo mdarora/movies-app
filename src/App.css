@@ -72,6 +72,29 @@ header{
   flex-wrap: wrap;
   justify-content: space-evenly;
   min-height: calc(100vh - 65px);
+  position: relative;
+}
+.movies-pagination{
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  display: flex;
+  justify-content: space-between;
+  width: 130px;
+  align-items: center;
+  transform: translateX(-50%);
+  padding-bottom: 15px;
+}
+.movies-pagination button{
+  padding: 0px;
+  font-size: 24px;
+  border: none;
+  background: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+.movies-pagination p{
+  font-size: 12px;
 }
 .no-movies{
   align-items: center;
