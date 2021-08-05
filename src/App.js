@@ -7,7 +7,7 @@ import movieIcon from "./images/movie-icon.svg";
 import './App.css';
 
 export const API_KEY = '29013b';
-export const API_URL = " http://www.omdbapi.com/?"
+export const API_URL = " https://www.omdbapi.com/?"
 
 const App = () => {
 
