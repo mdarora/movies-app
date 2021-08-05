@@ -152,3 +152,28 @@ header{
   opacity: .8;
   font-weight: 600;
 }
+
+@media screen and (max-width: 650px) {
+  .info{
+    flex-direction: column;
+  }
+  .info-poster{
+    text-align: center;
+  }
+}
+
+@media screen and  (max-width: 375px){
+  .header-app-name h3{
+    font-size: 16px;
+  }
+  .header-icon{
+    margin-right: 5px;
+  }
+  .header-icon img{
+    width: 30px;
+  }
+
+  .info-poster img{
+    width: 270px;
+  }
+}
