@@ -1,8 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import movieIcon from "../images/movie-icon.svg";
 import searchIcon from "../images/search-icon.png";
 
-const Header = () => {
+const Header = (props) => {
+
+    const [searchValue, setSearchValue] = useState("");
+
+    const searchMovie = (e) => {
+        e.preventDefault();
+        props.getMovies(searchValue);
+    }
+
     return (
     <>
         <header>
@@ -10,12 +18,12 @@ const Header = () => {
                 <span className="header-icon">
                     <img src={movieIcon} alt="movies icon" />
                 </span>
-                <h3>React Movies App</h3>
+                <a href="/"><h3>Movies App</h3></a>
             </div>
             <div className="header-search-form">
-                <form>
-                    <input type="text" placeholder="Search movie" />
-                    <button type="submit">
+                <form onSubmit={searchMovie}>
+                    <input type="text" onChange={e => setSearchValue(e.target.value)} placeholder="Search movie" value={searchValue} />
+                    <button disabled={!searchValue} type="submit">
                         <img src={searchIcon} alt="Search icon" />
                     </button>
                 </form>
