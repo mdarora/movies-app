@@ -1,6 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react';
 import Header from './components/Header';
 import Movie from './components/Movie';
+import MovieInfo from './components/MovieInfo';
+
 import movieIcon from "./images/movie-icon.svg";
 import './App.css';
 
@@ -10,11 +12,17 @@ export const API_URL = " http://www.omdbapi.com/?"
 const App = () => {
 
   const [moviesList, setMoviesList] = useState([]);
+  const [movieId, setMovieId] = useState("");
 
   const moviesSection = useRef();
   const noMoviesSection = useRef();
 
+  const changeMovieId = (id) => {
+    setMovieId(id)
+  }
+
   const getMovies = async (value) => {
+    setMovieId("");
     const requestUrl = `${API_URL}s=${value}&apikey=${API_KEY}`;
 
     const res = await fetch(requestUrl,{
@@ -25,6 +33,7 @@ const App = () => {
     if (data.Response === "True") {
       setMoviesList(data.Search);
     } else {
+      alert(data.Error);
       console.log("error : ", data);
     }
   }
@@ -43,6 +52,8 @@ const App = () => {
       <Header getMovies={getMovies}/>
       <main>
 
+        {movieId && <MovieInfo movieId={movieId} changeMovieId={changeMovieId}/>}
+
         <section ref={moviesSection} className="movies">
           {moviesList.length !== 0 ? moviesList.map((movie, index) => (
             <Movie 
@@ -52,6 +63,7 @@ const App = () => {
               type={movie.Type}
               poster={movie.Poster}
               id={movie.imdbID}
+              changeMovieId={changeMovieId}
             />
           )) : <></>}
         </section>
