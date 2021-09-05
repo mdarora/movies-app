@@ -29,7 +29,8 @@ const App = () => {
     let requestUrl;
     if (!page){
       setSearchValue(value);
-      requestUrl = `${API_URL}s=${value}&apikey=${API_KEY}`;
+      requestUrl = `${API_URL}s=${value}&page=1&apikey=${API_KEY}`;
+      setCurrentPage(1);
     } else {
       requestUrl = `${API_URL}s=${value}&page=${page}&apikey=${API_KEY}`;
     }
