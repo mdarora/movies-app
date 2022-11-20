@@ -16,6 +16,7 @@ const App = () => {
   const [searchValue, setSearchValue] = useState();
   const [totalPages, setTotalPages] = useState();
   const [currentPage, setCurrentPage] = useState(1);
+  const [localMovies, setLocalMovies] = useState([]);
 
   const moviesSection = useRef();
   const noMoviesSection = useRef();
@@ -70,14 +71,12 @@ const App = () => {
   }
 
   useEffect(()=>{
-    if(moviesList.length !== 0) {
-      moviesSection.current.style.display = "flex";
-      noMoviesSection.current.style.display = "none";
-    } else {
-      moviesSection.current.style.display = "none";
-      noMoviesSection.current.style.display = "flex";
+    const savedMovies = JSON.parse(window.localStorage.getItem("myMovies"));
+    if (savedMovies != null){
+      setLocalMovies(savedMovies);
     }
-  }, [moviesList]);
+  },[]);
+
   return (
   <>
       <Header getMovies={getMovies}/>
@@ -85,33 +84,57 @@ const App = () => {
 
         {movieId && <MovieInfo movieId={movieId} changeMovieId={changeMovieId}/>}
 
-        <section ref={moviesSection} className="movies">
-          {moviesList.length !== 0 ? moviesList.map((movie, index) => (
-            <Movie 
-              key={index}
-              title={movie.Title}
-              year={movie.Year}
-              type={movie.Type}
-              poster={movie.Poster}
-              id={movie.imdbID}
-              changeMovieId={changeMovieId}
-            />
-          )) : <></>}
-          
-          {totalPages > 1 ? <>
-            <div className="movies-pagination"> 
-              <p>page</p>
-              {currentPage !== 1 ? <button onClick={prevPage} title="Previous page">&laquo;</button> : ""}
-              <span>{currentPage}</span>
-              {currentPage !== totalPages ? <button onClick={nextPage} title="Next page">&raquo;</button> : ""}
-              <p>of {totalPages}</p>
-            </div>
-          </> : ""}
-        </section>
+        {moviesList.length !== 0 ? <>
+          <section ref={moviesSection} className="movies">
+            {moviesList.map((movie, index) => (
+              <Movie 
+                key={index}
+                title={movie.Title}
+                year={movie.Year}
+                type={movie.Type}
+                poster={movie.Poster}
+                id={movie.imdbID}
+                changeMovieId={changeMovieId}
+              />
+            ))}
+            
+            {totalPages > 1 ? <>
+              <div className="movies-pagination"> 
+                <p>page</p>
+                {currentPage !== 1 ? <button onClick={prevPage} title="Previous page">&laquo;</button> : ""}
+                <span>{currentPage}</span>
+                {currentPage !== totalPages ? <button onClick={nextPage} title="Next page">&raquo;</button> : ""}
+                <p>of {totalPages}</p>
+              </div>
+            </> : ""}
+          </section>
 
-        <section ref={noMoviesSection} className="no-movies">
-          <img src={movieIcon} alt="Movie icon" />
-        </section>
+        </> : <>
+        
+          <section ref={noMoviesSection} className="no-movies">
+            {localMovies.length == 0 ? <>
+              <div>
+                <p>No Saved Movies.</p>
+                <p>Search for movies in search bar.</p>
+              </div>
+            </> : <>
+            <h1 className='saved-head'>Your Saved Movies</h1>
+              {localMovies.map((movie, index) => (
+                <Movie 
+                  key={index}
+                  title={movie.Title}
+                  year={movie.Year}
+                  type={movie.Type}
+                  poster={movie.Poster}
+                  id={movie.imdbID}
+                  changeMovieId={changeMovieId}
+                />))}
+            </>
+               }
+          </section>
+
+        </>}
+
         
       </main>
   </>

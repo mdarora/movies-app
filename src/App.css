@@ -74,6 +74,20 @@ header{
   min-height: calc(100vh - 65px);
   position: relative;
 }
+.saved-head{
+  position: absolute;
+  top: 10px;
+}
+.no-movies{
+  text-align: center;
+  position: relative;
+  background-image: url("./images/movie-icon.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 150px;
+  background-blend-mode:overlay;
+  background-color: #ffffffdd;
+}
 .movies-pagination{
   position: absolute;
   bottom: -30px;
@@ -97,11 +111,11 @@ header{
   font-size: 12px;
 }
 .no-movies{
+  padding-top: 60px;
   align-items: center;
 }
 .no-movies img{
   width: 200px;
-  opacity: .5;
 }
 .movie{
   padding: 10px;
@@ -114,6 +128,7 @@ header{
   min-height: 350px;
   cursor: pointer;
   transition: all .5s;
+  background-color: #fff;
   box-shadow: rgb(170 170 170) 0px 3px 10px 0px;
 }
 .movie:hover{
@@ -121,9 +136,13 @@ header{
   transform: scale(1.05);
   background-color: #202020;
 }
+.movie-poster{
+  min-height: 350px;
+}
 .movie-poster img{
   width: 100%;
-  object-fit: cover;
+  max-height: 350px;
+  /* object-fit: cover; */
 }
 .movie-poster img.no-poster {
   width: 250px;
@@ -183,6 +202,23 @@ header{
   opacity: .8;
   font-weight: 600;
 }
+.add-btn, .remove-btn{
+  margin: 30px 0;
+}
+.add-btn button, .remove-btn button{
+  cursor: pointer;
+  padding: 5px 25px;
+}
+
+
+
+
+
+
+
+
+
+
 
 @media screen and (max-width: 650px) {
   .info{
