@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import InfoItem from './InfoItem';
-import closeIcon from "../images/remove.png";
+import closeIconRed from "../images/cancel.png";
+import closeIconBlack from "../images/remove.png";
 import {API_KEY, API_URL}  from "../App";
 
 const MovieInfo = (props) => {
@@ -41,7 +42,7 @@ const MovieInfo = (props) => {
         </div>
         <section id="info"  className="info">
             <div className="close">
-                <img src={closeIcon} alt="close icon" onClick={() => props.changeMovieId("")} />
+                <img src={closeIconRed} alt="close icon" onClick={() => props.changeMovieId("")} />
             </div>
             <div title={info.Title} className="info-poster">
                 <img src={info.Poster} alt="" />
