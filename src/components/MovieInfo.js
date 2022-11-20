@@ -28,11 +28,11 @@ const MovieInfo = (props) => {
                 document.getElementById("info").style.display = "flex";
             }
         };
-
-        // document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-
+        
         getInfo();
+        setTimeout(() => {
+            document.documentElement.scrollTop = 0;
+        }, 100);
     }, [props.movieId]);
 
     return (
