@@ -3,7 +3,7 @@ import Header from './components/Header';
 import Movie from './components/Movie';
 import MovieInfo from './components/MovieInfo';
 
-import movieIcon from "./images/movie-icon.svg";
+// import movieIcon from "./images/movie-icon.svg";
 import './App.css';
 
 export const API_KEY = '29013b';
@@ -82,7 +82,7 @@ const App = () => {
       <Header getMovies={getMovies}/>
       <main>
 
-        {movieId && <MovieInfo movieId={movieId} changeMovieId={changeMovieId}/>}
+        {movieId && <MovieInfo movieId={movieId} setLocalMovies={setLocalMovies} changeMovieId={changeMovieId}/>}
 
         {moviesList.length !== 0 ? <>
           <section ref={moviesSection} className="movies">
@@ -112,7 +112,7 @@ const App = () => {
         </> : <>
         
           <section ref={noMoviesSection} className="no-movies">
-            {localMovies.length == 0 ? <>
+            {localMovies.length === 0 ? <>
               <div>
                 <p>No Saved Movies.</p>
                 <p>Search for movies in search bar.</p>
@@ -122,6 +122,7 @@ const App = () => {
               {localMovies.map((movie, index) => (
                 <Movie 
                   key={index}
+                  index={index}
                   title={movie.Title}
                   year={movie.Year}
                   type={movie.Type}

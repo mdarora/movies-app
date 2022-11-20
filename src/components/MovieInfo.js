@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import InfoItem from './InfoItem';
 import closeIconRed from "../images/cancel.png";
-import closeIconBlack from "../images/remove.png";
+// import closeIconBlack from "../images/remove.png";
 import {API_KEY, API_URL}  from "../App";
 
 const MovieInfo = (props) => {
@@ -17,16 +17,25 @@ const MovieInfo = (props) => {
             window.localStorage.setItem("myMovies", JSON.stringify([info]));
         } else {
             const jsonLocalMovies = JSON.parse(prevLocalMovies);
-            if(jsonLocalMovies.filter( movie => movie.imdbID === info.imdbID).length == 0){
-                jsonLocalMovies.push(info);
+            if(jsonLocalMovies.filter( movie => movie.imdbID === info.imdbID).length === 0){
+                jsonLocalMovies.unshift(info);
                 window.localStorage.setItem("myMovies", JSON.stringify(jsonLocalMovies));
                 setIsItInLocalStorage(true);
+                props.setLocalMovies(jsonLocalMovies);
             }
         }
     }
 
     const removeMovieFromLocal = () => {
-        console.log("ToDo remove movies from local storage");
+        const jsonLocalMovies = JSON.parse(window.localStorage.getItem("myMovies"));
+        jsonLocalMovies.forEach((element, index) => {
+            if (element.imdbID === info.imdbID){
+                jsonLocalMovies.splice(index, 1);
+            }
+        });
+        window.localStorage.setItem("myMovies", JSON.stringify(jsonLocalMovies));
+        setIsItInLocalStorage(false);
+        props.setLocalMovies(jsonLocalMovies);
     }
 
     useEffect(() => {
@@ -70,7 +79,7 @@ const MovieInfo = (props) => {
         </div>
         <section id="info"  className="info">
             <div className="close">
-                <img src={closeIconRed} alt="close icon" onClick={() => props.changeMovieId("")} />
+                <img src={closeIconRed} alt="close icon" onClick={() => props.changeMovieId()} />
             </div>
             <div title={info.Title} className="info-poster">
                 <img src={info.Poster} alt="" />
