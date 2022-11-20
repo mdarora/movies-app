@@ -7,8 +7,27 @@ import {API_KEY, API_URL}  from "../App";
 const MovieInfo = (props) => {
 
     const [info, setInfo] = useState({});
+    const [isItInLocalStorage, setIsItInLocalStorage] = useState(false);
 
     const loading = useRef();
+
+    const addMovieToLocal = () => {
+        const prevLocalMovies = window.localStorage.getItem("myMovies");
+        if(!prevLocalMovies){
+            window.localStorage.setItem("myMovies", JSON.stringify([info]));
+        } else {
+            const jsonLocalMovies = JSON.parse(prevLocalMovies);
+            if(jsonLocalMovies.filter( movie => movie.imdbID === info.imdbID).length == 0){
+                jsonLocalMovies.push(info);
+                window.localStorage.setItem("myMovies", JSON.stringify(jsonLocalMovies));
+                setIsItInLocalStorage(true);
+            }
+        }
+    }
+
+    const removeMovieFromLocal = () => {
+        console.log("ToDo remove movies from local storage");
+    }
 
     useEffect(() => {
         const getInfo = async () =>{
@@ -34,6 +53,15 @@ const MovieInfo = (props) => {
             document.documentElement.scrollTop = 0;
         }, 100);
     }, [props.movieId]);
+
+    useEffect(()=>{
+        const jsonLocalMovies = JSON.parse(window.localStorage.getItem("myMovies"));
+        if(jsonLocalMovies && jsonLocalMovies.filter( movie => movie.imdbID === info.imdbID).length > 0){
+            setIsItInLocalStorage(true);
+        } else {
+            setIsItInLocalStorage(false);
+        }
+    }, [info]);
 
     return (
     <>
@@ -66,7 +94,15 @@ const MovieInfo = (props) => {
                 <InfoItem item="Actors" value={info.Actors}/>
                 <InfoItem item="Plot" value={info.Plot}/>
 
-
+                {isItInLocalStorage ? 
+                    <div className="remove-btn">
+                        <button onClick={removeMovieFromLocal}>Unsave</button>
+                    </div>
+                    :
+                    <div className="add-btn">
+                        <button onClick={addMovieToLocal}>Save</button>
+                    </div>
+                }
             </div>
         </section>
     </>
