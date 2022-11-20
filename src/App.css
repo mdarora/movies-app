@@ -113,7 +113,13 @@ header{
   justify-content: space-between;
   min-height: 350px;
   cursor: pointer;
+  transition: all .5s;
   box-shadow: rgb(170 170 170) 0px 3px 10px 0px;
+}
+.movie:hover{
+  color: #fff;
+  transform: scale(1.05);
+  background-color: #202020;
 }
 .movie-poster img{
   width: 100%;
