@@ -5,7 +5,7 @@ const Movie = (props) => {
     <>
         <div title={props.title} className="movie" onClick={() => props.changeMovieId(props.id)}>
             <div className="movie-poster">
-                {props.poster === "N/A" ? <img src={props.poster} alt="Movie poster" className="no-poster"/> : <img src={props.poster} alt="poster" />}
+                {props.poster === "N/A" ? <img src={props.poster} alt="No Movie poster" className="no-poster"/> : <img src={props.poster} alt="poster" />}
             </div>
             <div className="movie-details">
                 <h4 className="movie-title">{props.title}</h4>
