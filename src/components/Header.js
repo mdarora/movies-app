@@ -18,7 +18,7 @@ const Header = (props) => {
                 <span className="header-icon">
                     <img src={movieIcon} alt="movies icon" />
                 </span>
-                <a href="/"><h3>Movies App</h3></a>
+                <a href="/movies-app"><h3>Movies App</h3></a>
             </div>
             <div className="header-search-form">
                 <form onSubmit={searchMovie}>
