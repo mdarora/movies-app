@@ -141,9 +141,11 @@ header{
 /* **************************************************************** */
 
 .info{
+  color: #fff;
   padding: 15px;
   display: flex;
   position: relative;
+  background-color: #151515;
   border-bottom: 1px solid #dbdbdb;
 }
 .close{
